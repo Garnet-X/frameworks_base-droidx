@@ -1106,4 +1106,9 @@ interface IWindowManager
 
     boolean transferTouchGesture(in InputTransferToken transferFromToken,
             in InputTransferToken transferToToken);
+
+    /**
+     * Notifies DisplayPolicy that overlays changed.
+     */
+    void onOverlayChanged();
 }
