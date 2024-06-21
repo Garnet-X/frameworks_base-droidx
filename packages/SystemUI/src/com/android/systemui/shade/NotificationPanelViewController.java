@@ -286,6 +286,7 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
 
     private static final Rect M_DUMMY_DIRTY_RECT = new Rect(0, 0, 1, 1);
     private static final Rect EMPTY_RECT = new Rect();
+
     /**
      * Whether the Shade should animate to reflect Back gesture progress.
      * To minimize latency at runtime, we cache this, else we'd be reading it every time
@@ -787,7 +788,8 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
             PowerInteractor powerInteractor,
             KeyguardClockPositionAlgorithm keyguardClockPositionAlgorithm,
             NaturalScrollingSettingObserver naturalScrollingSettingObserver,
-            TunerService tunerService) {
+            TunerService tunerService,
+            Context context) {
         keyguardStateController.addCallback(new KeyguardStateController.Callback() {
             @Override
             public void onKeyguardFadingAwayChanged() {
@@ -807,8 +809,7 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
         mOccludedToLockscreenTransitionViewModel = occludedToLockscreenTransitionViewModel;
         mLockscreenToDreamingTransitionViewModel = lockscreenToDreamingTransitionViewModel;
         mGoneToDreamingTransitionViewModel = goneToDreamingTransitionViewModel;
-        mGoneToDreamingLockscreenHostedTransitionViewModel =
-                goneToDreamingLockscreenHostedTransitionViewModel;
+        mGoneToDreamingLockscreenHostedTransitionViewModel = goneToDreamingLockscreenHostedTransitionViewModel;
         mLockscreenToOccludedTransitionViewModel = lockscreenToOccludedTransitionViewModel;
         mPrimaryBouncerToGoneTransitionViewModel = primaryBouncerToGoneTransitionViewModel;
         mKeyguardTransitionInteractor = keyguardTransitionInteractor;
@@ -935,7 +936,7 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
         });
         mBottomAreaShadeAlphaAnimator.setDuration(160);
         mBottomAreaShadeAlphaAnimator.setInterpolator(Interpolators.ALPHA_OUT);
-        mDoubleTapGesture = new GestureDetector(mView.getContext(),
+        mDoubleTapGesture = new GestureDetector(context,
                 new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
